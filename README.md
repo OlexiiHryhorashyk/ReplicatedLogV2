@@ -49,7 +49,11 @@ For running this project you need:
 ![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/1d462f73-0fa7-45f3-813d-784de5bbadaa)
 
    In Docker Desktop logs for each node:
+   Master:
 ![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/648f6fa7-b11f-4100-9e4c-f1fc47a5d80e)
+  Sub1:
+ ![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/cd3e8549-51ae-4c46-a51b-b9206ec53e3d)
+
 
 
 
