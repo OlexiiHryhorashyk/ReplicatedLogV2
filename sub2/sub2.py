@@ -9,7 +9,7 @@ async def handle_post(request):
     content = await request.content.read()
     msg = literal_eval(content.decode('utf-8'))
     print("POST handler <- Message received:", msg['message'])
-    await asyncio.sleep(1)
+    await asyncio.sleep(1)  # not blocking latency
     messages_list.append(msg['message'])
     message = "Message received:" + str(msg['message'])
     return web.Response(text=message)

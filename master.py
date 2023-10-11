@@ -5,8 +5,8 @@ from ast import literal_eval
 
 messages_list = []
 ports = [8080, 8090]  # local ports to link with same ports of other nodes in the network
-url = [f'http://localhost:{port}/' for port in ports] # for running without Docker locally
-#url = [f'http://node1:{ports[0]}', f'http://node2:{ports[1]}']  # for Docker containers
+# url = [f'http://localhost:{port}/' for port in ports] # for running without Docker locally
+url = [f'http://node1:{ports[0]}', f'http://node2:{ports[1]}']  # for Docker containers
 
 
 async def send_to_sub(url_address, msg):
@@ -14,7 +14,6 @@ async def send_to_sub(url_address, msg):
         msg = {'message': msg}
         async with aiohttp.ClientSession() as session:
             async with session.post(url_address, json=msg) as response:
-                # print(response)
                 print(f"POST request -> Message sent to {url.index(url_address) + 1} subsequent server - {msg['message']}")
     except aiohttp.ClientError:
         print(f"POST ERROR -> No connection to the {url.index(url_address) + 1} sub server! Message not passed!")
@@ -43,6 +42,7 @@ async def handle_post(request):
     if w > 2:
         await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
     return web.Response(text=f"Message received: {msg_str}")
+
 
 async def handle_get(request):
     str_messages = ',\n'.join(str(msg) for msg in messages_list)
