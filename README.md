@@ -38,13 +38,19 @@ For running this project you need:
    docker logs main/node1/node2.
 
    In Docker desktop it works like this:
+ ![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/3c66f876-31ad-41be-b423-e55836d907ee)
 
-   In terminal-client.py console:
+   In terminal-client.py console. We can see client blocking time difference with different write consern values. I have simulated latancy 3 sec. for secondary №1 and 1sec. for secondary node №2:
+![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/452353b4-fdfa-46c0-ac04-70b374371f9a)
+![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/d3c52933-a1b9-40fc-b1c3-3b7575aa007b)
 
    In nodes logs:
+![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/3f690da8-4a32-4120-aedc-8bec77a79456)
+![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/1d462f73-0fa7-45f3-813d-784de5bbadaa)
 
    In Docker Desktop logs for each node:
-   
+![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/648f6fa7-b11f-4100-9e4c-f1fc47a5d80e)
+
 
 
 
