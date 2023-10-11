@@ -1,6 +1,6 @@
 from aiohttp import web
+import asyncio
 from ast import literal_eval
-import time
 
 messages_list = []
 
@@ -9,9 +9,9 @@ async def handle_post(request):
     content = await request.content.read()
     msg = literal_eval(content.decode('utf-8'))
     print("POST handler <- Message received:", msg['message'])
+    await asyncio.sleep(3)
     messages_list.append(msg['message'])
     message = "Message received:" + str(msg['message'])
-    time.sleep(3)  # simulated latency 5 seconds
     return web.Response(text=message)
 
 

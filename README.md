@@ -57,6 +57,8 @@ For running this project you need:
   
  ![image](https://github.com/OlexiiHryhorashyk/ReplicatedLogV2/assets/58079096/cd3e8549-51ae-4c46-a51b-b9206ec53e3d)
 
+And demonstration of simulated inconsistency. Set up "latency" for 10 seconds on first sub-node. Then sent message in async (w=1) mode. One by one, listed contents of master node and sub1 node. We see that last msg is not saved yet, but after few more seconds contents starts to mach again.
+
 
 
 

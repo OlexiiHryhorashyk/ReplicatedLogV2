@@ -5,8 +5,8 @@ from ast import literal_eval
 
 messages_list = []
 ports = [8080, 8090]  # local ports to link with same ports of other nodes in the network
-#url = [f'http://localhost:{port}/' for port in ports] # for running without Docker locally
-url = [f'http://node1:{ports[0]}', f'http://node2:{ports[1]}']  # for Docker containers
+url = [f'http://localhost:{port}/' for port in ports] # for running without Docker locally
+#url = [f'http://node1:{ports[0]}', f'http://node2:{ports[1]}']  # for Docker containers
 
 
 async def send_to_sub(url_address, msg):
