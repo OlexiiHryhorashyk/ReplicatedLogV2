@@ -2,6 +2,8 @@ version: "3.9"
 services:
   master:
     build: .
+    environment:
+      - NODE_NAMES=node1 node2
     ports:
       - "8000:8000"
     container_name: master
@@ -10,22 +12,26 @@ services:
     networks:
       - master
   sub1:
-    build: sub1/
+    build: sub/
+    environment:
+      - LATENCY=3
     ports:
       - "8080:8080"
     container_name: node1
-    command: python -u ./sub1.py
+    command: python -u ./sub.py
     depends_on:
       - master
     networks:
       - master
 
   sub2:
-    build: sub2/
+    build: sub/
+    environment:
+      - LATENCY=1
     ports:
-      - "8090:8090"
+      - "8090:8080"
     container_name: node2
-    command: python -u ./sub2.py
+    command: python -u ./sub.py
     depends_on:
       - master
     networks:
@@ -33,3 +39,4 @@ services:
 
 networks:
   master:
+    driver: bridge

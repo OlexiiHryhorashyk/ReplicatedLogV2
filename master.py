@@ -1,21 +1,28 @@
+import os
 import aiohttp
 import asyncio
 from aiohttp import web
 from ast import literal_eval
-
-messages_list = []
-ports = [8080, 8090]  # local ports to link with same ports of other nodes in the network
-# url = [f'http://localhost:{port}/' for port in ports] # for running without Docker locally
-url = [f'http://node1:{ports[0]}', f'http://node2:{ports[1]}']  # for Docker containers
+NODE_NAMES = os.getenv('NODE_NAMES', 'node1 node2')
+nodes = NODE_NAMES.split()
+messages_list = {}
+url = [f'http://{node}:8080' for node in nodes]  # for Docker containers
+message_index = 0
 
 
 async def send_to_sub(url_address, msg):
+    global message_index
     try:
-        msg = {'message': msg}
+        msg = {
+            'message': msg,
+            'index': message_index
+            }
         async with aiohttp.ClientSession() as session:
             async with session.post(url_address, json=msg) as response:
                 print(f"POST request -> Message sent to {url.index(url_address) + 1} subsequent server - {msg['message']}")
-    except aiohttp.ClientError:
+        message_index += 1
+    except aiohttp.ClientError as error:
+        print(error)
         print(f"POST ERROR -> No connection to the {url.index(url_address) + 1} sub server! Message not passed!")
 
 
@@ -31,7 +38,7 @@ async def handle_post(request):
         msg_str = message[3:]
     else:
         w = len(url)+1
-    messages_list.append(msg_str)
+    messages_list.update({message_index: msg_str})  # Saving as a dictionary to mach the type on secondary
     tasks = [asyncio.create_task(send_to_sub(url_address, msg_str)) for url_address in url]
     print("w=", w)
     if w <= 1:
@@ -45,7 +52,7 @@ async def handle_post(request):
 
 
 async def handle_get(request):
-    str_messages = ',\n'.join(str(msg) for msg in messages_list)
+    str_messages = ',\n'.join(str(msg) for msg in messages_list.values())
     print("GET handler -> Listing saved messages...")
     return web.Response(text=str_messages)
 

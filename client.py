@@ -27,7 +27,6 @@ while message != "stop":
             x = requests.get(url2)
             print(x.text)
         except requests.exceptions.ConnectionError:
-            print(error)
             print("No connection to the subsequent server №2!")
     elif message == "stop":
         break
